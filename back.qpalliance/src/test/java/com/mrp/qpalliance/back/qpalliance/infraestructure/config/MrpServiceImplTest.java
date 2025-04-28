@@ -2,6 +2,7 @@ package com.mrp.qpalliance.back.qpalliance.infraestructure.config;
 
 import com.mrp.qpalliance.back.qpalliance.domain.model.Product;
 import com.mrp.qpalliance.back.qpalliance.infraestructure.adapter.output.jpa.ProductRepository;
+import com.mrp.qpalliance.back.qpalliance.infraestructure.service.MrpServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

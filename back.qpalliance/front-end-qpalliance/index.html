@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos - Demo</title>
+    <style>
+        /* Estilos Globales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Cabecera */
+        header {
+            background-color: #003366; /* Azul corporativo */
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        /* Sección de tabla de productos */
+        section#product-list {
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Tabla de productos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #003366;
+            color: white;
+            font-weight: 600;
+        }
+
+        td {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Formulario para agregar producto */
+        section#add-product {
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #003366;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #003366;
+            outline: none;
+            background-color: #fff;
+        }
+
+        .submit-button {
+            background-color: #007bff; /* Azul claro */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Mensajes de error */
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Sección de alertas de stock */
+        section#stock-alerts {
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Estilo de tabla para alertas */
+        #stockAlertsTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #stockAlertsTable th, #stockAlertsTable td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #stockAlertsTable th {
+            background-color: #003366;
+            color: white;
+            font-weight: 600;
+        }
+
+        #stockAlertsTable td {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #stockAlertsTable tr:hover {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header>
+        Gestión de Productos - Demo
+    </header>
+
+    <!-- Sección de productos -->
+    <section id="product-list">
+        <h2>Productos Disponibles</h2>
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los productos desde el backend -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Formulario para agregar producto -->
+    <section id="add-product">
+        <h2>Agregar Nuevo Producto</h2>
+        <form id="addProductForm">
+            <div class="form-group">
+                <label for="productName">Nombre del Producto:</label>
+                <input type="text" id="productName" name="productName" required>
+                <div id="errorName" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="productCode">Código del Producto:</label>
+                <input type="text" id="productCode" name="productCode" required>
+                <div id="errorCode" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="currentStock">Stock Actual:</label>
+                <input type="number" id="currentStock" name="currentStock" required>
+                <div id="errorStock" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="minimumStock">Stock Mínimo:</label>
+                <input type="number" id="minimumStock" name="minimumStock" required>
+                <div id="errorMinStock" class="error"></div>
+            </div>
+            <button type="submit" class="submit-button">Agregar Producto</button>
+        </form>
+    </section>
+
+    <!-- Sección de alertas de stock -->
+    <section id="stock-alerts">
+        <h2>Alertas de Stock</h2>
+        <table id="stockAlertsTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+            </thead>
+            <tbody id="stockAlerts">
+                <!-- Las alertas se agregarán aquí -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Demo Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Función para obtener alertas de stock
+            function loadStockAlerts() {
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/mrp/alerts", 
+                    method: "GET",
+                    success: function(response) {
+                        if (Array.isArray(response) && response.length > 0) {
+                            let alertsHtml = "";
+                            response.forEach(function(alert) {
+                                alertsHtml += `
+                                    <tr>
+                                        <td>${alert.name}</td>
+                                        <td>${alert.code}</td>
+                                        <td>${alert.currentStock}</td>
+                                        <td>${alert.minimumStock}</td>
+                                    </tr>
+                                `;
+                            });
+                            $("#stockAlerts").html(alertsHtml); // Actualiza el contenido del tbody con las alertas
+                        } else {
+                            $("#stockAlerts").html("<tr><td colspan='4'>No hay alertas de stock.</td></tr>");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $("#stockAlerts").html("<tr><td colspan='4'>Error al cargar las alertas.</td></tr>");
+                    }
+                });
+            }
+
+            // Llamar la función al cargar la página
+            loadStockAlerts();
+
+            // Obtener productos desde el microservicio
+            function loadProducts() {
+                fetch("http://localhost:8080/api/v1/mrp/products")
+                    .then(response => response.json())
+                    .then(data => {
+                        let tableContent = "";
+                        data.forEach(product => {
+                            tableContent += `<tr>
+                                <td>${product.name}</td>
+                                <td>${product.code}</td>
+                                <td>${product.currentStock}</td>
+                                <td>${product.minimumStock}</td>
+                            </tr>`;
+                        });
+                        $("#productTable tbody").html(tableContent);
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Error al cargar los productos.");
+                    });
+            }
+
+            // Llamar a la función de carga de productos
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
+

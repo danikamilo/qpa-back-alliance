@@ -1,4 +1,4 @@
-package com.mrp.qpalliance.back.qpalliance.infraestructure.config;
+package com.mrp.qpalliance.back.qpalliance.infraestructure.service;
 
 import com.mrp.qpalliance.back.qpalliance.common.exception.MrpException;
 import com.mrp.qpalliance.back.qpalliance.common.util.MrpConstants;
@@ -29,8 +29,7 @@ public class MrpServiceImpl implements IMrpService {
     public ResponseEntity<?> getAllProducts() {
         log.info("Executing getAllProducts");
         try {
-            List<Product> products = productRepository.findAll();
-            return ResponseEntity.ok(products);
+            return ResponseEntity.ok(productRepository.findAll());
         } catch (Exception e) {
             log.error("Error fetching all products", e);
             throw new MrpException(MrpConstants.ERROR_FETCHING_PRODUCTS);

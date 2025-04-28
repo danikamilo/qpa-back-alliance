@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
  * @author Daniel Camilo
  */
 @RestController
-@RequestMapping("/api/v1/mrp")
+@RequestMapping(value = "/api/v1/mrp", produces = "application/json")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MrpResource {
 
     @Autowired
@@ -26,12 +27,12 @@ public class MrpResource {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<String> createProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity<Void> createProduct(@Valid @RequestBody Product product) {
         try {
-            mrpService.createProduct(product);
-            return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
+            mrpService.createProduct(product); // Llama al servicio para crear el producto
+            return new ResponseEntity<>(HttpStatus.CREATED); // Solo el código de estado 201 sin cuerpo
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Código de estado 400 en caso de error
         }
     }
 
